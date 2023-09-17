@@ -42,6 +42,7 @@ impl std::convert::From<PyPolarsErr> for PyErr {
                 PolarsError::StringCacheMismatch(err) => {
                     StringCacheMismatchError::new_err(err.to_string())
                 }
+                PolarsError::OutOfBounds(err) => OutOfBoundsError::new_err(err.to_string()),
             },
             Arrow(err) => ArrowErrorException::new_err(format!("{:?}", err)),
             _ => default(),
@@ -70,3 +71,4 @@ create_exception!(exceptions, ShapeError, PyException);
 create_exception!(exceptions, SchemaError, PyException);
 create_exception!(exceptions, DuplicateError, PyException);
 create_exception!(exceptions, StringCacheMismatchError, PyException);
+create_exception!(exceptions, OutOfBoundsError, PyException);
